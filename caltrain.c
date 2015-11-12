@@ -42,11 +42,11 @@ station_wait_for_train(struct station *station)
 void
 station_on_board(struct station *station)
 {
-	// FILL ME IN
+  pthread_mutex_lock(&(station->lock));
+
+  station->in_passengers--;
+  if (station->in_passengers == 0)
+  	pthread_cond_broadcast(&(station->train_is_full_cond), &(station->lock));
+
+  pthread_mutex_unlock(&(station->lock));
 }
-
-
-pthread_cond_wait(&cond_availData, &pc_mutex);
-pthread_cond_signal(&cond_availSpace);
-pthread_mutex_lock(&pc_mutex);
-pthread_mutex_unlock(&pc_mutex);
