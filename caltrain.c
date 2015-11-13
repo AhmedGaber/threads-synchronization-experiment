@@ -2,7 +2,9 @@
 #include "caltrain.h"
 
 
-
+/**
+  Initializes all the mutexs and condetion-variables.
+*/
 void
 station_init(struct station *station)
 {
@@ -14,6 +16,13 @@ station_init(struct station *station)
   pthread_cond_init(&(station->train_is_full_cond), NULL);
 }
 
+/**
+Loads the train with passengers. When a passenger robot arrives in a station, it first invokes this function. 
+The function must not return until the train is satisfactorily loaded.
+Params:
+  stattion: current station pointer
+  count: indicates how many seats are available on the train
+*/
 void
 station_load_train(struct station *station, int count)
 {
@@ -33,6 +42,14 @@ station_load_train(struct station *station, int count)
   pthread_mutex_unlock(&(station->lock));
 }
 
+/**
+This function must not return until a train is in the station and there are enough free seats on
+the train for this passenger. Once this function returns, the passenger robot will move the
+passenger on board the train and into a seat.
+Once the passenger is seated, it will call the function: station_on_board
+Params:
+  stattion: current station pointe
+*/
 void
 station_wait_for_train(struct station *station)
 {
@@ -47,6 +64,11 @@ station_wait_for_train(struct station *station)
   pthread_mutex_unlock(&(station->lock));
 }
 
+/**
+Use this function to let the train know that it’s on board.
+Params:
+  stattion: current station pointer
+*/
 void
 station_on_board(struct station *station)
 {
