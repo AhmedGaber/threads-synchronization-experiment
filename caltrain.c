@@ -3,7 +3,7 @@
 
 
 /**
-  Initializes all the mutexs and condetion-variables.
+  Initializes all the mutexes and condition-variables.
 */
 void
 station_init(struct station *station)
