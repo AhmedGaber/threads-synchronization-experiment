@@ -59,9 +59,10 @@ station_wait_for_train(struct station *station)
   pthread_cond_wait(&(station->train_arrived_cond), &(station->lock));
   station->out_passengers--;
   station->in_passengers++;
-  pthread_cond_signal(&(station->passengers_seated_cond));
 
   pthread_mutex_unlock(&(station->lock));
+
+  pthread_cond_signal(&(station->passengers_seated_cond));
 }
 
 /**
@@ -75,8 +76,9 @@ station_on_board(struct station *station)
   pthread_mutex_lock(&(station->lock));
 
   station->in_passengers--;
-  if (station->in_passengers == 0)
-  	pthread_cond_broadcast(&(station->train_is_full_cond));
 
   pthread_mutex_unlock(&(station->lock));
+
+  if (station->in_passengers == 0)
+  	pthread_cond_broadcast(&(station->train_is_full_cond));
 }
