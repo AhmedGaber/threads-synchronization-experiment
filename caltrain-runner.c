@@ -1,13 +1,3 @@
-/*
- * This file tests the implementation in caltrain.c. You shouldn't need to
- * modify it, but you're welcome to do so. Please report any bugs to us via
- * Piazza or email (cs140ta@cs).
- *
- * Note that passing these tests doesn't guarantee that your code is correct
- * or meets the specifications given, but hopefully it's at least pretty
- * close.
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
